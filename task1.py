@@ -44,19 +44,16 @@ def confidence_interval_simulation(Nd: int, Ns: int):
     t_alpha = t.ppf(0.95, Nd)
     lower = avg - t_alpha * std / np.sqrt(Nd)
     upper = avg + t_alpha * std / np.sqrt(Nd)
-    return (lower, upper)
+    return (avg, std, lower, upper)
 
 
 def task_c():
-    N = 7300
-    tail = int(N / 2)
-    x = simulate(N)
-    vals, counts = np.unique_counts(x[tail:])
-    print(counts / tail)
+    Ns = 7300
+    Nd = 30
+    interval = confidence_interval_simulation(Nd, Ns)
+    print([10 / 31, 1 / 31, 20 / 31])
+    print(interval)
 
 
 if __name__ == "__main__":
-    # task_c()
-    interval = confidence_interval_simulation(30, 7300)
-    print([10 / 31, 1 / 31, 20 / 31])
-    print(interval)
+    task_c()
