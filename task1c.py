@@ -41,7 +41,7 @@ def confidence_interval_simulation(Nd: int, Ns: int):
         data[:, i] = counts
     avg = np.average(data, axis=1)
     std = np.std(data, axis=1)
-    t_alpha = t.ppf(0.95, Nd)
+    t_alpha = t.ppf(0.975, Nd-1)
     lower = avg - t_alpha * std / np.sqrt(Nd)
     upper = avg + t_alpha * std / np.sqrt(Nd)
     return (avg, std, lower, upper)
@@ -50,9 +50,13 @@ def confidence_interval_simulation(Nd: int, Ns: int):
 def task_c():
     Ns = 7300
     Nd = 30
-    interval = confidence_interval_simulation(Nd, Ns)
-    print([10 / 31, 1 / 31, 20 / 31])
-    print(interval)
+    avg, std, lower, upper = confidence_interval_simulation(Nd, Ns)
+    true_values = [10/31, 1/31, 20/31]
+    for i in range(lower.size):
+        print(f"State {i}: ({lower[i]:.4f}, {upper[i]:.4f})")
+        print(f"True value: {true_values[i]:.4f}")
+        print(f"Is contained: {lower[i] <= true_values[i] <= upper[i]}")
+        print("-"*10)
 
 
 if __name__ == "__main__":
