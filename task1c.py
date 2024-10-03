@@ -40,7 +40,7 @@ def confidence_interval_simulation(Nd: int, Ns: int):
         counts = counts / tail
         data[:, i] = counts
     avg = np.average(data, axis=1)
-    std = np.std(data, axis=1)
+    std = np.std(data, axis=1, ddof=1)
     t_alpha = t.ppf(0.975, Nd-1)
     lower = avg - t_alpha * std / np.sqrt(Nd)
     upper = avg + t_alpha * std / np.sqrt(Nd)
