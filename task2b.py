@@ -18,13 +18,12 @@ def task2b():
         amounts = [0]
         while t < 59:
             delta_t = exp_dist.rvs(0, 1 / 1.5)  # realisation of an exponential variable
-            # print(delta_t)
             t += delta_t
             if t <= 59:
                 times.append(t)
                 amounts.append(exp_dist.rvs(0, 1 / 10) + amounts[-1])
-
-        amount_claims[i] = len(times)
+                # This generates a claim amount and changes the last total value of the amounts array
+        amount_claims[i] = len(times) - 1
 
         claim_amounts[i] = amounts[-1]
 
@@ -32,7 +31,7 @@ def task2b():
             first_10_times.append(times)
             first_10_amounts.append(amounts)
 
-    prob_over_8 = np.sum(claim_amounts > 8) / 1000
+    prob_over_8 = np.sum(claim_amounts > 8) / 1000  # The amount of claims amounts over 8 mill as a decimal
     print(prob_over_8)
 
     for k in range(10):
@@ -40,7 +39,7 @@ def task2b():
 
     plt.title("10 first realisations of Z(t)")
     plt.xlabel("t")
-    plt.ylabel("Claim amount in millions")
+    plt.ylabel("Claim amount in mill. kr")
     plt.show()
 
 
