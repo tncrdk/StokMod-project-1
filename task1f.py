@@ -3,6 +3,7 @@ import scipy
 import matplotlib.pyplot as plt
 
 binom = scipy.stats.binom
+t = scipy.stats.t
 
 alpha = 0.005
 gamma = 0.1
@@ -29,13 +30,29 @@ def task1_e():
 
 
         inf_max_arr[k] = np.max(y[:, 1])
-        inf_max_time_arr[k] = np.argmax(y[:, 1])
+        inf_max_time_arr[k] = np.min(np.argmax(y[:, 1]))
 
 
     est_inf_max = np.mean(inf_max_arr)
     est_inf_max_time = np.mean(inf_max_time_arr)
 
-    print(est_inf_max)
-    print(est_inf_max_time)
+    s_max = np.std(inf_max_arr, ddof=1)
+    s_time = np.std(inf_max_time_arr, ddof=1)
+
+    t_alpha = t.ppf(0.975, N - 1)
+
+    lower_inf_max = est_inf_max - t_alpha * s_max / np.sqrt(N)
+    upper_inf_max = est_inf_max + t_alpha * s_max / np.sqrt(N)
+
+    lower_inf_max_time = est_inf_max_time - t_alpha * s_time / np.sqrt(N)
+    upper_inf_max_time = est_inf_max_time + t_alpha * s_time / np.sqrt(N)
+
+    print(f"estimate infected max {est_inf_max}")
+    print(f"estimate infected max time {est_inf_max_time}")
+
+    print(f"interval max {lower_inf_max}, {upper_inf_max}")
+    print(f"interval time {lower_inf_max_time}, {upper_inf_max_time}")
+
+
 
 task1_e()

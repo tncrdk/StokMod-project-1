@@ -7,9 +7,9 @@ exp_dist = st.expon
 
 def task_a():
     first_10 = []
-
-    amount_claims = np.zeros(1000)
-    for i in range(1000):
+    iters = 1000
+    amount_claims = np.zeros(iters)
+    for i in range(iters):
         t = 0
         times = [0, ]
         while t < 59:
@@ -24,10 +24,10 @@ def task_a():
 
         amount_claims[i] = len(times)
 
-    print(amount_claims)
-    amount_over = np.sum(amount_claims > 100) / 1000
+    #print(amount_claims)
+    amount_over = np.sum(amount_claims > 100) / iters
 
-    print(amount_over)
+    print(f"Percentage of claims over 100: {amount_over}")
     for realization in first_10:
         plt.step(realization, np.arange(0, len(realization), 1))
 
