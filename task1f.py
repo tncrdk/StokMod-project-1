@@ -30,7 +30,7 @@ def task1_e():
 
 
         inf_max_arr[k] = np.max(y[:, 1])
-        inf_max_time_arr[k] = np.argmax(y[:, 1])
+        inf_max_time_arr[k] = np.min(np.argmax(y[:, 1]))
 
 
     est_inf_max = np.mean(inf_max_arr)
