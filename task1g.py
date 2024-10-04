@@ -42,6 +42,9 @@ def plot_realization(time_steps: int, y0: np.ndarray, n_vaccinated: int):
     y = simulation(time_steps, y0, n_vaccinated, alpha, gamma)
 
     plt.plot(t, y.T, label=["Susceptible", "Infected", "Recovered"])
+    plt.title("Temporal Evolution of one realization of Y")
+    plt.xlabel("Time Step [days]")
+    plt.ylabel("Individuals")
     plt.legend()
     plt.savefig(f"plots/realization-{n_vaccinated}.pdf")
     plt.clf()
@@ -110,7 +113,7 @@ def task1_g():
     n_simulations = 1000
     time_steps = 300
     population_size = 1000
-    n_vaccinated_arr = [100, 600, 800]
+    n_vaccinated_arr = [0, 100, 600, 800]
     n_infected = 50
 
     # Go through all the cases
